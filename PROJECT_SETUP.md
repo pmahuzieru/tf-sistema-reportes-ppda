@@ -73,9 +73,9 @@ Once pyenv is installed, you can use it to install Python 3.12.8:
 pyenv install 3.12.8
 ```
 
-Set Python 3.10.12 as the local version for your project: In the root directory of your project (inside tf-sisstema-reportes-ppda), run:
+Set Python 3.12.8 as the local version for your project: In the root directory of your project (inside tf-sisstema-reportes-ppda), run:
 ```
-pyenv local 3.10.12
+pyenv local 3.12.8
 ```
 This will create a .python-version file in your project directory with the Python version you selected. This ensures that anyone who clones the repository and uses pyenv will automatically switch to Python 3.12.8.
 
