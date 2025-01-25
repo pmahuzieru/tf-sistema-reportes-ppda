@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-aghi@h_4c+s0!7v*^n6h^xlp#(ftm-6ge!xr6nt9knn4!cj1)p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -142,6 +142,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.AllowAny',
     ],
 }
 
