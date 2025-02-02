@@ -183,3 +183,4 @@ cython_debug/
 
 # Others
 README.*.md
+docker-compose.*.yaml
