@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-aghi@h_4c+s0!7v*^n6h^xlp#(ftm-6ge!xr6nt9knn4!cj1)p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -49,6 +49,21 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'management',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['drf_yasg']
+    SWAGGER_SETTINGS = {
+        'SECURITY_DEFINITIONS': {
+            'Bearer': {
+                'type': 'apiKey',
+                'name': 'Authorization',
+                'in': 'header'
+            }
+        },
+        'USE_SESSION_AUTH': False,
+    }
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
