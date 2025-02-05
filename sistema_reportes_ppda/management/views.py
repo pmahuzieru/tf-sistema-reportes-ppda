@@ -1,6 +1,7 @@
 from rest_framework import viewsets
-from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile
-from management.serializers import EnvironmentalPlanSerializer, MeasureReportSerializer, MeasureSerializer, ReportFileSerializer
+from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile, Body
+from management.serializers import EnvironmentalPlanSerializer, MeasureReportSerializer, MeasureSerializer, ReportFileSerializer, BodySerializer
+from rest_framework.permissions import AllowAny
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
@@ -46,6 +47,12 @@ class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
     serializer_class = ReportFileSerializer
     
+
+
+class BodyViewSet(viewsets.ModelViewSet):
+    queryset = Body.objects.all()
+    serializer_class = BodySerializer
+
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
         serializer.save(created_by=self.request.user)
