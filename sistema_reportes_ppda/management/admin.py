@@ -1,5 +1,5 @@
 from django.contrib import admin
-from management.models import EnvironmentalPlan, Measure
+from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile
 
 
 @admin.register(EnvironmentalPlan)
@@ -32,3 +32,27 @@ class MeasureAdmin(admin.ModelAdmin):
         
         obj.updated_by = request.user
         super().save_model(request, obj, form, change)
+        
+@admin.register(MeasureReport)
+class MeasureReportAdmin(admin.ModelAdmin):
+    list_display = ('measure', 'reported_value', 'created_at', 'created_by', 'updated_at', 'updated_by')
+    readonly_fields = ('created_at', 'created_by', 'updated_at',  'updated_by')
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        
+        obj.updated_by = request.user
+        super().save_model(request, obj, form, change)   
+    
+@admin.register(ReportFile)
+class ReportFileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description', 'created_at', 'created_by', 'updated_at', 'updated_by')
+    readonly_fields = ('created_at', 'created_by', 'updated_at',  'updated_by')
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        
+        obj.updated_by = request.user
+        super().save_model(request, obj, form, change)   

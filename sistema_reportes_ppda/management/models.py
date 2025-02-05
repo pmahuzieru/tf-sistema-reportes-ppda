@@ -46,7 +46,7 @@ class Measure(models.Model):
     
 
 class MeasureReport(models.Model):
-    measure_id = models.ForeignKey(Measure, on_delete=models.CASCADE, related_name="measure_reports", null=False, blank=False)
+    measure = models.ForeignKey(Measure, on_delete=models.CASCADE, related_name="measure_reports", null=False, blank=False)
     reported_value = models.CharField(max_length=20, null=False, blank=False)
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,7 +56,7 @@ class MeasureReport(models.Model):
     
 
 class ReportFile(models.Model):
-    report_id = models.ForeignKey(MeasureReport, on_delete=models.CASCADE, related_name="files", null=False, blank=False)
+    report = models.ForeignKey(MeasureReport, on_delete=models.CASCADE, related_name="files", null=False, blank=False)
     description = models.CharField(max_length=255, null=False, blank=False)
     file = models.FileField(upload_to='uploads/')
     
