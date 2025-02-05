@@ -64,3 +64,13 @@ class ReportFile(models.Model):
     created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_report_files", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_report_files', null=True, blank=True)
+
+class Body(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_bodies", null=False, blank=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_bodies', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
