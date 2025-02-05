@@ -1,0 +1,167 @@
+[
+    {
+        "model": "management.environmentalplan",
+        "pk": 1,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Tocopilla",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:00:00Z",
+            "updated_at": "2024-02-04T12:00:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 2,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Calama",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:05:00Z",
+            "updated_at": "2024-02-04T12:05:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 3,
+        "fields": {
+            "name": "Plan de Prevención Atmosférica para Huasco",
+            "type": "PPA",
+            "created_at": "2024-02-04T12:10:00Z",
+            "updated_at": "2024-02-04T12:10:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 4,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Andacollo",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:15:00Z",
+            "updated_at": "2024-02-04T12:15:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 5,
+        "fields": {
+            "name": "Plan de Prevención y Descontaminación Atmosférica para Concón, Quintero y Puchuncaví",
+            "type": "PPDA",
+            "created_at": "2024-02-04T12:20:00Z",
+            "updated_at": "2024-02-04T12:20:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 6,
+        "fields": {
+            "name": "Plan de Prevención y Descontaminación Atmosférica para la Región Metropolitana",
+            "type": "PPDA",
+            "created_at": "2024-02-04T12:25:00Z",
+            "updated_at": "2024-02-04T12:25:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 7,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para el Valle Central de la Región de O'Higgins",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:30:00Z",
+            "updated_at": "2024-02-04T12:30:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 8,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Talca y Maule",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:35:00Z",
+            "updated_at": "2024-02-04T12:35:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 9,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Curicó",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:40:00Z",
+            "updated_at": "2024-02-04T12:40:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 10,
+        "fields": {
+            "name": "Plan de Prevención y Descontaminación Atmosférica para Chillán y Chillán Viejo",
+            "type": "PPDA",
+            "created_at": "2024-02-04T12:45:00Z",
+            "updated_at": "2024-02-04T12:45:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 11,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Los Ángeles",
+            "type": "PDA",
+            "created_at": "2024-02-04T12:50:00Z",
+            "updated_at": "2024-02-04T12:50:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 12,
+        "fields": {
+            "name": "Plan de Prevención y Descontaminación Atmosférica para Concepción Metropolitano",
+            "type": "PPDA",
+            "created_at": "2024-02-04T12:55:00Z",
+            "updated_at": "2024-02-04T12:55:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 13,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Temuco y Padre Las Casas",
+            "type": "PDA",
+            "created_at": "2024-02-04T13:00:00Z",
+            "updated_at": "2024-02-04T13:00:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 14,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Valdivia",
+            "type": "PDA",
+            "created_at": "2024-02-04T13:05:00Z",
+            "updated_at": "2024-02-04T13:05:00Z",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "management.environmentalplan",
+        "pk": 15,
+        "fields": {
+            "name": "Plan de Descontaminación Atmosférica para Osorno",
+            "type": "PDA",
+            "created_at": "2024-02-04T13:10:00Z",
+            "updated_at": "2024-02-04T13:10:00Z",
+            "created_by": 1
+        }
+    }
+]
