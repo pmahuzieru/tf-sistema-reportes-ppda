@@ -53,7 +53,7 @@ class ReportFileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Body)
-class MeasureAdmin(admin.ModelAdmin):
+class BodyAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'created_by', 'updated_at', 'updated_by')
     readonly_fields = ('created_at', 'created_by', 'updated_at',  'updated_by')
     
