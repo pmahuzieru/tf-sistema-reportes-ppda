@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile, Body
+from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile, Body,BodyMeasure
     
 
 class ReportFileSerializer(serializers.ModelSerializer):
@@ -75,3 +75,11 @@ class BodySerializer(serializers.ModelSerializer):
         validated_data['updated_by'] = user
 
         return super().update(instance, validated_data)
+
+class BodyMeasureSerializer(serializers.ModelSerializer):
+    fk_measure = serializers.SlugRelatedField(slug_field="short_name", queryset=Measure.objects.all())
+    fk_body = serializers.SlugRelatedField(slug_field="name", queryset=Body.objects.all())
+
+    class Meta:
+        model = BodyMeasure
+        fields = '__all__'

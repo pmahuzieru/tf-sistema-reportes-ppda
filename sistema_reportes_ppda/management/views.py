@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile, Body
-from management.serializers import EnvironmentalPlanSerializer, MeasureReportSerializer, MeasureSerializer, ReportFileSerializer, BodySerializer
+from management.models import EnvironmentalPlan, Measure, MeasureReport, ReportFile, Body,BodyMeasure
+from management.serializers import EnvironmentalPlanSerializer, MeasureReportSerializer, MeasureSerializer, ReportFileSerializer, BodySerializer, BodyMeasureSerializer
 from rest_framework.permissions import AllowAny
 
 
@@ -60,3 +60,7 @@ class BodyViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         # Automatically set the `updated_by` field to the logged-in user
         serializer.save(updated_by=self.request.user)
+
+class BodyMeasureViewSet(viewsets.ModelViewSet):
+    queryset = BodyMeasure.objects.all()
+    serializer_class = BodyMeasureSerializer
