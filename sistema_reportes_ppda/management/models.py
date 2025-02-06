@@ -74,3 +74,12 @@ class Body(models.Model):
 
     def __str__(self):
         return self.name
+
+class BodyMeasure(models.Model):
+    fk_measure = models.ForeignKey(Measure, on_delete=models.CASCADE, related_name="measure_bodymeasure", null=False, blank=False)
+    fk_body = models.ForeignKey(Body, on_delete=models.CASCADE, related_name="body_bodymeasure", null=False, blank=False)
+    is_reporter = models.BooleanField(default = False)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.id_body.name} - {self.id_measure.short_name}"
