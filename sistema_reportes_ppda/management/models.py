@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import CustomUser
+# from accounts.models import CustomUser
 
 class EnvironmentalPlan(models.Model):
     PLAN_TYPE_CHOICES = [  # https://ppda.mma.gob.cl/
@@ -12,9 +12,9 @@ class EnvironmentalPlan(models.Model):
     short_name = models.CharField(max_length=50, null=False, blank=False)
     type = models.CharField(max_length=4, choices=PLAN_TYPE_CHOICES, default="PPDA", null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_plans", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_plans", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_plans', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_plans', null=True, blank=True)
     
     def __str__(self):
         return self.short_name
@@ -37,9 +37,9 @@ class Measure(models.Model):
     reporting_frequency = models.CharField(max_length=50, null=False, blank=False)
     verification_methods = models.CharField(max_length=500, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_measures", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_measures", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_measures', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_measures', null=True, blank=True)
     is_regulatory = models.BooleanField(default=True)
 
     def __str__(self):
@@ -51,9 +51,9 @@ class MeasureReport(models.Model):
     reported_value = models.CharField(max_length=20, null=False, blank=False)
     
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_measure_reports", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_measure_reports", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_measure_reports', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_measure_reports', null=True, blank=True)
     
     def __str__(self):
         return f"{self.measure.reference_PDA.short_name} - {self.measure.id} - {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
@@ -64,9 +64,9 @@ class ReportFile(models.Model):
     description = models.CharField(max_length=255, null=False, blank=False)
     file = models.FileField(upload_to='uploads/')    
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_report_files", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_report_files", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_report_files', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_report_files', null=True, blank=True)
     
     def __str__(self):
         return f"{self.description}"
@@ -74,9 +74,9 @@ class ReportFile(models.Model):
 class Body(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_bodies", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_bodies", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_bodies', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_bodies', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -87,9 +87,9 @@ class BodyMeasure(models.Model):
     is_reporter = models.BooleanField(default=True)
     active = models.BooleanField(default=True)    
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_bodymeasures", null=False, blank=False)
+    created_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name="created_bodymeasures", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_bodymeasures', null=True, blank=True)
+    updated_by = models.ForeignKey('accounts.CustomUser', on_delete=models.PROTECT, related_name='updated_bodymeasures', null=True, blank=True)
 
     def __str__(self):
         return f"{self.fk_body.name} - {self.fk_measure.short_name}"
