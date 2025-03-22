@@ -1,5 +1,4 @@
 from django.db import models
-# from accounts.models import CustomUser
 
 class EnvironmentalPlan(models.Model):
     PLAN_TYPE_CHOICES = [  # https://ppda.mma.gob.cl/

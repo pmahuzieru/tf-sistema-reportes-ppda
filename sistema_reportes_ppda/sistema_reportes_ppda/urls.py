@@ -8,16 +8,17 @@ from sistema_reportes_ppda.settings import DEBUG
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('management.urls')),
+    path('api/mgmt/', include('management.urls')),
+    path('api/accounts/', include('accounts.urls')),
     path('api/token/', obtain_auth_token, name='api_token')
 ]
 
 if DEBUG:
     schema_view = get_schema_view(
         openapi.Info(
-            title="My API",
+            title="Sistema de Reportes PPDA (Grupo 2)",
             default_version='v1',
-            description="Test description",
+            description="Work in progress...",
             terms_of_service="https://www.google.com/policies/terms/",
             contact=openapi.Contact(email="contact@myapi.local"),
             license=openapi.License(name="BSD License"),
