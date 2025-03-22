@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from management.models import (
     EnvironmentalPlan,
     Measure,
@@ -83,6 +83,14 @@ class ReportFileViewSet(viewsets.ModelViewSet):
 class BodyViewSet(viewsets.ModelViewSet):
     queryset = Body.objects.all()
     serializer_class = BodySerializer
+    
+    def get_permissions(self):
+        """
+        Grant permissions based on action.
+        """
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]  # Anyone can read (for now)
+        return [IsAdminUser()]  # Because of fixed nature of the objects, only allow Admins to modify list
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
