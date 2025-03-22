@@ -105,6 +105,14 @@ class BodyMeasureViewSet(viewsets.ModelViewSet):
     queryset = BodyMeasure.objects.all()
     serializer_class = BodyMeasureSerializer
 
+    def get_permissions(self):
+        """
+        Grant permissions based on action.
+        """
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]  # Anyone can read (for now)
+        return [IsSMAUser()]  # Only allow SMA users to write these
+    
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
         serializer.save(created_by=self.request.user)
