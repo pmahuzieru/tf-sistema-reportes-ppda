@@ -47,6 +47,13 @@ class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
     serializer_class = ReportFileSerializer
     
+    def perform_create(self, serializer):
+        # Automatically set the `created_by` field to the logged-in user
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        # Automatically set the `updated_by` field to the logged-in user
+        serializer.save(updated_by=self.request.user)   
 
 
 class BodyViewSet(viewsets.ModelViewSet):
@@ -64,3 +71,11 @@ class BodyViewSet(viewsets.ModelViewSet):
 class BodyMeasureViewSet(viewsets.ModelViewSet):
     queryset = BodyMeasure.objects.all()
     serializer_class = BodyMeasureSerializer
+    
+    def perform_create(self, serializer):
+        # Automatically set the `created_by` field to the logged-in user
+        serializer.save(created_by=self.request.user)
+
+    def perform_update(self, serializer):
+        # Automatically set the `updated_by` field to the logged-in user
+        serializer.save(updated_by=self.request.user)
