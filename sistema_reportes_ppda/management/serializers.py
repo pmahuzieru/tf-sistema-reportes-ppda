@@ -77,9 +77,16 @@ class BodySerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 class BodyMeasureSerializer(serializers.ModelSerializer):
-    fk_measure = serializers.SlugRelatedField(slug_field="short_name", queryset=Measure.objects.all())
-    fk_body = serializers.SlugRelatedField(slug_field="name", queryset=Body.objects.all())
+    fk_measure = serializers.PrimaryKeyRelatedField(queryset=Measure.objects.all())
+    fk_body = serializers.PrimaryKeyRelatedField(queryset=Body.objects.all())
 
     class Meta:
         model = BodyMeasure
         fields = '__all__'
+        read_only_fields = ['created_at', 'created_by', 'updated_at', 'updated_by']
+        
+    def update(self, instance, validated_data):
+        user = self.context['request'].user
+        validated_data['updated_by'] = user
+
+        return super().update(instance, validated_data)

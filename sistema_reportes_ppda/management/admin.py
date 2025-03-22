@@ -21,10 +21,21 @@ class EnvironmentalPlanAdmin(admin.ModelAdmin):
         obj.updated_by = request.user
         super().save_model(request, obj, form, change)
 
+class BodyMeasureInline(admin.TabularInline):
+    """
+    Enables a list of Body objects related to a Measure to show in the Admin
+    """
+    model = BodyMeasure
+    extra = 0  # Number of empty forms to show (0 means no empty forms by default)
+    readonly_fields = ['fk_body', 'is_reporter', 'active']
+    
+    fields = ('fk_body', 'is_reporter')
+              
 @admin.register(Measure)
 class MeasureAdmin(admin.ModelAdmin):
     list_display = ('short_name', 'reference_PDA', 'created_at', 'created_by', 'updated_at', 'updated_by')
     readonly_fields = ('created_at', 'created_by', 'updated_at',  'updated_by')
+    inlines = [BodyMeasureInline]
     
     def save_model(self, request, obj, form, change):
         if not change:
