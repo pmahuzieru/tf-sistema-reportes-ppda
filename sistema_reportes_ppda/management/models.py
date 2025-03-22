@@ -9,6 +9,7 @@ class EnvironmentalPlan(models.Model):
     ]
     
     name = models.CharField(max_length=200, null=False, blank=False)
+    short_name = models.CharField(max_length=50, null=False, blank=False)
     type = models.CharField(max_length=4, choices=PLAN_TYPE_CHOICES, default="PPDA", null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_plans", null=False, blank=False)
@@ -16,7 +17,7 @@ class EnvironmentalPlan(models.Model):
     updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_plans', null=True, blank=True)
     
     def __str__(self):
-        return self.name
+        return self.short_name
 
 
 class Measure(models.Model):
@@ -42,7 +43,7 @@ class Measure(models.Model):
     is_regulatory = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.short_name
+        return f"{self.reference_PDA.short_name} - {self.short_name}"
     
 
 class MeasureReport(models.Model):
@@ -54,16 +55,21 @@ class MeasureReport(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_measure_reports', null=True, blank=True)
     
+    def __str__(self):
+        return f"{self.measure.reference_PDA.short_name} - {self.measure.id} - {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+    
 
 class ReportFile(models.Model):
     report = models.ForeignKey(MeasureReport, on_delete=models.CASCADE, related_name="files", null=False, blank=False)
     description = models.CharField(max_length=255, null=False, blank=False)
-    file = models.FileField(upload_to='uploads/')
-    
+    file = models.FileField(upload_to='uploads/')    
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_report_files", null=False, blank=False)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_report_files', null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.description}"
 
 class Body(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
@@ -78,8 +84,12 @@ class Body(models.Model):
 class BodyMeasure(models.Model):
     fk_measure = models.ForeignKey(Measure, on_delete=models.CASCADE, related_name="measure_bodymeasure", null=False, blank=False)
     fk_body = models.ForeignKey(Body, on_delete=models.CASCADE, related_name="body_bodymeasure", null=False, blank=False)
-    is_reporter = models.BooleanField(default = False)
-    active = models.BooleanField(default=True)
+    is_reporter = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)    
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name="created_bodymeasures", null=False, blank=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='updated_bodymeasures', null=True, blank=True)
 
     def __str__(self):
-        return f"{self.id_body.name} - {self.id_measure.short_name}"
+        return f"{self.fk_body.name} - {self.fk_measure.short_name}"
