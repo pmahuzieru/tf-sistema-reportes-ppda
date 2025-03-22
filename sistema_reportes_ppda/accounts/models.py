@@ -1,13 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.core.exceptions import ValidationError
-from accounts.utils import validate_rut
 from management.models import Body
 
 class CustomUser(AbstractUser):
-    rut = models.CharField(max_length=12, unique=True, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    body = models.ForeignKey(Body, on_delete=models.CASCADE, related_name='body_users', null=False, blank=False)
+    rut = models.CharField(max_length=12, unique=True, blank=False, null=False)
+    body = models.ForeignKey(Body, on_delete=models.CASCADE, related_name='body_users', null=True, blank=True)
 
     def clean(self):
         """ Validar formato y número verificador. """
