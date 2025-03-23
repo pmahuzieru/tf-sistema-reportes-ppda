@@ -16,7 +16,7 @@ from management.serializers import (
     BodySerializer,
     BodyMeasureSerializer,
 )
-from management.permissions import IsSMAUser
+from custom_permissions import IsSMAUser
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):

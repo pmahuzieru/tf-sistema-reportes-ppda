@@ -3,10 +3,26 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import CustomUser
 from accounts.serializers import CustomUserSerializer
+from custom_permissions import IsSMAOrSelf, IsSMAUser
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    
+    def get_permissions(self):
+        """
+        - Solo los usuarios de la SMA pueden listar (`list`) todos los usuarios.
+        - Los usuarios solo pueden ver (`retrieve`) y modificar (`update`, `partial_update`) su propio perfil.
+        - Solo los SMA pueden eliminar (`destroy`) usuarios.
+        """
+        
+        if self.action == "list":
+            return [IsSMAUser()]  # Solo SMA puede ver la lista
+
+        if self.action in ["update", "partial_update", "retrieve", "destroy"]:
+            return [IsSMAOrSelf()]  # SMA puede hacer todo, otros solo su perfil
+
+        return super().get_permissions()
     
 
 class RegisterUserAPIView(APIView):
