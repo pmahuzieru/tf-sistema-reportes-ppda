@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/mgmt/', include('management.urls')),
     path('api/accounts/', include('accounts.urls')),
+    path('api/reporting/', include('reporting.urls')),
     path('api/token/', obtain_auth_token, name='api_token')
 ]
 
