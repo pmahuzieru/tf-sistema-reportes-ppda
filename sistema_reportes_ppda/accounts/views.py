@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from accounts.models import CustomUser
 from accounts.serializers import CustomUserSerializer
 from custom_permissions import IsSMAOrSelf, IsSMAUser
@@ -26,6 +27,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     
 
 class RegisterUserAPIView(APIView):
+    permission_classes = [AllowAny]  # By default all endpoints require Auth, but registration should be public?
     def post(self, request):
         
         if CustomUser.objects.filter(username=request.data.get('username')).exists():
