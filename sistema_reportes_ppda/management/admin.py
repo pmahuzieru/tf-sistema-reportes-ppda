@@ -4,7 +4,7 @@ from management.models import BodyMeasure, EnvironmentalPlan, Measure, MeasureRe
 
 @admin.register(EnvironmentalPlan)
 class EnvironmentalPlanAdmin(admin.ModelAdmin):
-    list_display = list_display = ('name', 'type', 'updated_at', 'updated_by')
+    list_display = ('name', 'type', 'updated_at', 'updated_by')
     search_fields = ('name',)
     readonly_fields = ('created_at', 'created_by', 'updated_at',  'updated_by')
     
