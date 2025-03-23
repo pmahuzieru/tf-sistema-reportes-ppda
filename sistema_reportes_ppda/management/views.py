@@ -16,7 +16,7 @@ from management.serializers import (
     BodySerializer,
     BodyMeasureSerializer,
 )
-from custom_permissions import IsAssignedToReportMeasure, IsSMAUser
+from custom_permissions import IsAssignedToReportMeasure, IsSMAUser, ReportIsTheirs
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
@@ -77,7 +77,15 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
 
 class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
-    serializer_class = ReportFileSerializer        
+    serializer_class = ReportFileSerializer    
+    
+    def get_permissions(self):
+        """
+        Grant permissions based on action.
+        """
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]  # Anyone can read (for now)
+        return [ReportIsTheirs()]  # Only if the related reports is assigned to the user's body  
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user

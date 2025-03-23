@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 
-from management.models import BodyMeasure, Measure
+from management.models import BodyMeasure, Measure, MeasureReport
 
 
 SUPERINTENDENCIA_DEL_MEDIO_AMBIENTE = "Superintendencia del Medio Ambiente"
@@ -64,3 +64,26 @@ class IsAssignedToReportMeasure(BasePermission):
         
         return is_assigned
         
+        
+class ReportIsTheirs(BasePermission):
+    """
+    Allows permission if the related measure Report is from the User's body.
+    For SMA users, full access.
+    """
+    def has_permission(self, request, view):
+        
+        if is_sma(request.user):
+            return True
+        
+        report_id = request.data.get("report")
+        report = MeasureReport.objects.get(id=report_id)
+        related_measure = report.measure
+        user_body = request.user.body
+        
+        is_assigned = BodyMeasure.objects.filter(
+            fk_measure=related_measure,
+            fk_body=user_body,
+            is_reporter=True
+        ).exists()
+        
+        return is_assigned
