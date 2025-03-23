@@ -16,7 +16,7 @@ from management.serializers import (
     BodySerializer,
     BodyMeasureSerializer,
 )
-from custom_permissions import IsSMAUser
+from custom_permissions import IsAssignedToReportMeasure, IsSMAUser
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
@@ -43,7 +43,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         """
         if self.action in ["list", "retrieve"]:
             return [AllowAny()]  # Anyone can read (for now)
-        return [IsSMAUser()]
+        return [IsSMAUser()]  # Only SMA users can CRUD completely.
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -57,6 +57,14 @@ class MeasureViewSet(viewsets.ModelViewSet):
 class MeasureReportViewSet(viewsets.ModelViewSet):
     queryset = MeasureReport.objects.all()
     serializer_class = MeasureReportSerializer
+    
+    def get_permissions(self):
+        """
+        Grant permissions based on action.
+        """
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]  # Anyone can read (for now)
+        return [IsAssignedToReportMeasure()]  # Only users from assigned bodies
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -69,7 +77,7 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
 
 class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
-    serializer_class = ReportFileSerializer
+    serializer_class = ReportFileSerializer        
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
