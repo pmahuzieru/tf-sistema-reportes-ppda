@@ -184,3 +184,10 @@ cython_debug/
 # Others
 README.*.md
 docker-compose.*.yaml
+
+# Certificates
+cert.pem
+key.pem
+
+# Static files (Django x uvicorn)
+static/
