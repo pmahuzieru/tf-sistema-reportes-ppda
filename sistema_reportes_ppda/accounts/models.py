@@ -3,7 +3,7 @@ from django.db import models
 from management.models import Body
 
 class CustomUser(AbstractUser):
-    rut = models.CharField(max_length=12, unique=True, blank=False, null=False)
+    rut = models.CharField(max_length=12, unique=True, blank=True, null=True)
     body = models.ForeignKey(Body, on_delete=models.CASCADE, related_name='body_users', null=True, blank=True)
 
     def clean(self):
