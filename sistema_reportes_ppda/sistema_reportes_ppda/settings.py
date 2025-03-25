@@ -47,11 +47,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
     "rest_framework",
-#    "rest_framework.authtoken",
+    "rest_framework.authtoken",
     "management",
     "reporting",
-    "rest_framework_simplejwt"
-]
+    "rest_framework_simplejwt",
+    ]
 
 if DEBUG:
     INSTALLED_APPS += ["drf_yasg"]

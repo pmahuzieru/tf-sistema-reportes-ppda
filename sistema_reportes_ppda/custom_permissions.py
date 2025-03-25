@@ -12,6 +12,8 @@ def is_sma(user):
     """
     user_body = getattr(user, "body", None)
 
+    breakpoint()
+
     if not user_body:
         return False
 

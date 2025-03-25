@@ -1,5 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from management.models import (
     EnvironmentalPlan,
     Measure,
@@ -22,7 +23,8 @@ from custom_permissions import IsAssignedToReportMeasure, IsSMAUser, ReportIsThe
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
     queryset = EnvironmentalPlan.objects.all()
     serializer_class = EnvironmentalPlanSerializer
-    permission_classes = [IsSMAUser]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -36,13 +38,14 @@ class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.all()
     serializer_class = MeasureSerializer
+    authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  # I'm not sure if this is OK because the restriction above
         return [IsSMAUser()]  # Only SMA users can CRUD completely.
 
     def perform_create(self, serializer):
@@ -57,13 +60,14 @@ class MeasureViewSet(viewsets.ModelViewSet):
 class MeasureReportViewSet(viewsets.ModelViewSet):
     queryset = MeasureReport.objects.all()
     serializer_class = MeasureReportSerializer
+    authentication_classes = [JWTAuthentication]
     
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  # Anyone can read (for now)
         return [IsAssignedToReportMeasure()]  # Only users from assigned bodies
 
     def perform_create(self, serializer):
@@ -77,14 +81,16 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
 
 class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
-    serializer_class = ReportFileSerializer    
+    serializer_class = ReportFileSerializer
+   # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]    
     
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  # Anyone can read (for now)
         return [ReportIsTheirs()]  # Only if the related reports is assigned to the user's body  
 
     def perform_create(self, serializer):
@@ -99,13 +105,15 @@ class ReportFileViewSet(viewsets.ModelViewSet):
 class BodyViewSet(viewsets.ModelViewSet):
     queryset = Body.objects.all()
     serializer_class = BodySerializer
+    authentication_classes = [JWTAuthentication]
+
     
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  
         return [IsAdminUser()]  # Because of fixed nature of the objects, only allow Admins to modify list
 
     def perform_create(self, serializer):
@@ -120,13 +128,14 @@ class BodyViewSet(viewsets.ModelViewSet):
 class BodyMeasureViewSet(viewsets.ModelViewSet):
     queryset = BodyMeasure.objects.all()
     serializer_class = BodyMeasureSerializer
+    authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  
         return [IsSMAUser()]  # Only allow SMA users to write these
     
     def perform_create(self, serializer):
