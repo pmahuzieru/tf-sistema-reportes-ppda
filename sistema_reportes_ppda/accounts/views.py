@@ -1,18 +1,14 @@
 from rest_framework import viewsets, status
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAdminUser
 from accounts.models import CustomUser
 from accounts.serializers import CustomUserSerializer
 from custom_permissions import IsSMAOrSelf, IsSMAUser
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    #permission_classes = [IsAuthenticated]
-    #authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
         """

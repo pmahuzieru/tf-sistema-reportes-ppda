@@ -1,6 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from management.models import (
     EnvironmentalPlan,
     Measure,
@@ -23,8 +22,6 @@ from custom_permissions import IsAssignedToReportMeasure, IsSMAUser, ReportIsThe
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
     queryset = EnvironmentalPlan.objects.all()
     serializer_class = EnvironmentalPlanSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -38,7 +35,6 @@ class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.all()
     serializer_class = MeasureSerializer
-    authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
         """
@@ -60,7 +56,6 @@ class MeasureViewSet(viewsets.ModelViewSet):
 class MeasureReportViewSet(viewsets.ModelViewSet):
     queryset = MeasureReport.objects.all()
     serializer_class = MeasureReportSerializer
-    authentication_classes = [JWTAuthentication]
     
     def get_permissions(self):
         """
@@ -82,8 +77,6 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
 class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
     serializer_class = ReportFileSerializer
-   # permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]    
     
     def get_permissions(self):
         """
@@ -105,8 +98,6 @@ class ReportFileViewSet(viewsets.ModelViewSet):
 class BodyViewSet(viewsets.ModelViewSet):
     queryset = Body.objects.all()
     serializer_class = BodySerializer
-    authentication_classes = [JWTAuthentication]
-
     
     def get_permissions(self):
         """
@@ -128,7 +119,6 @@ class BodyViewSet(viewsets.ModelViewSet):
 class BodyMeasureViewSet(viewsets.ModelViewSet):
     queryset = BodyMeasure.objects.all()
     serializer_class = BodyMeasureSerializer
-    authentication_classes = [JWTAuthentication]
 
     def get_permissions(self):
         """
