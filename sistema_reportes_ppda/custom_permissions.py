@@ -1,4 +1,5 @@
 from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAdminUser
 
 from management.models import BodyMeasure, Measure, MeasureReport
 
@@ -12,8 +13,6 @@ def is_sma(user):
     """
     user_body = getattr(user, "body", None)
 
-    breakpoint()
-
     if not user_body:
         return False
 
@@ -22,21 +21,27 @@ def is_sma(user):
 
 class IsSMAUser(BasePermission):
     """
-    Allows permission only to users that represent the SMA.
+    Allows permission only to users that represent the SMA and 
+    admins.
     """
 
     def has_permission(self, request, view):
+        if IsAdminUser().has_permission(request, view):
+            return True
         return request.user.is_authenticated and is_sma(request.user)
 
 
 class IsSMAOrSelf(BasePermission):
     """
-    Allows complete User listing access for SMA users, but others only to their own information.
+    Allows complete User listing access for SMA and 
+     admins users, but others only to their own information.
     """
     
     def has_object_permission(self, request, view, obj):
         if is_sma(request.user):
-            True
+            return True
+        if IsAdminUser().has_permission(request, view):
+            return True
         return obj == request.user
         
     
