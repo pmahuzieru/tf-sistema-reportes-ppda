@@ -1,4 +1,5 @@
 from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAdminUser
 
 from management.models import BodyMeasure, Measure, MeasureReport
 
@@ -18,23 +19,29 @@ def is_sma(user):
     return user_body.name.strip() == SUPERINTENDENCIA_DEL_MEDIO_AMBIENTE
 
 
-class IsSMAUser(BasePermission):
+class IsSMAUserOrAdmin(BasePermission):
     """
-    Allows permission only to users that represent the SMA.
+    Allows permission only to users that represent the SMA and 
+    admins.
     """
 
     def has_permission(self, request, view):
+        if IsAdminUser().has_permission(request, view):
+            return True
         return request.user.is_authenticated and is_sma(request.user)
 
 
-class IsSMAOrSelf(BasePermission):
+class IsAdminOrSMAOrSelf(BasePermission):
     """
-    Allows complete User listing access for SMA users, but others only to their own information.
+    Allows complete User listing access for SMA and 
+     admins users, but others only to their own information.
     """
     
     def has_object_permission(self, request, view, obj):
         if is_sma(request.user):
-            True
+            return True
+        if IsAdminUser().has_permission(request, view):
+            return True
         return obj == request.user
         
     

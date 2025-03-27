@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from management.models import (
     EnvironmentalPlan,
     Measure,
@@ -16,13 +16,12 @@ from management.serializers import (
     BodySerializer,
     BodyMeasureSerializer,
 )
-from custom_permissions import IsAssignedToReportMeasure, IsSMAUser, ReportIsTheirs
+from custom_permissions import IsAssignedToReportMeasure, IsSMAUserOrAdmin, ReportIsTheirs
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
     queryset = EnvironmentalPlan.objects.all()
     serializer_class = EnvironmentalPlanSerializer
-    permission_classes = [IsSMAUser]
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -42,8 +41,8 @@ class MeasureViewSet(viewsets.ModelViewSet):
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
-        return [IsSMAUser()]  # Only SMA users can CRUD completely.
+            return [IsAuthenticated()]  # I'm not sure if this is OK because the restriction above
+        return [IsSMAUserOrAdmin()]  # Only SMA users can CRUD completely.
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -63,7 +62,7 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  # Anyone can read (for now)
         return [IsAssignedToReportMeasure()]  # Only users from assigned bodies
 
     def perform_create(self, serializer):
@@ -77,14 +76,14 @@ class MeasureReportViewSet(viewsets.ModelViewSet):
 
 class ReportFileViewSet(viewsets.ModelViewSet):
     queryset = ReportFile.objects.all()
-    serializer_class = ReportFileSerializer    
+    serializer_class = ReportFileSerializer
     
     def get_permissions(self):
         """
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  # Anyone can read (for now)
         return [ReportIsTheirs()]  # Only if the related reports is assigned to the user's body  
 
     def perform_create(self, serializer):
@@ -105,7 +104,7 @@ class BodyViewSet(viewsets.ModelViewSet):
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
+            return [IsAuthenticated()]  
         return [IsAdminUser()]  # Because of fixed nature of the objects, only allow Admins to modify list
 
     def perform_create(self, serializer):
@@ -126,8 +125,8 @@ class BodyMeasureViewSet(viewsets.ModelViewSet):
         Grant permissions based on action.
         """
         if self.action in ["list", "retrieve"]:
-            return [AllowAny()]  # Anyone can read (for now)
-        return [IsSMAUser()]  # Only allow SMA users to write these
+            return [IsAuthenticated()]  
+        return [IsSMAUserOrAdmin()]  # Only allow SMA users to write these
     
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user

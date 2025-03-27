@@ -1,35 +1,42 @@
 from rest_framework import viewsets, status
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from accounts.models import CustomUser
 from accounts.serializers import CustomUserSerializer
-from custom_permissions import IsSMAOrSelf, IsSMAUser
+from custom_permissions import IsAdminOrSMAOrSelf, IsSMAUserOrAdmin
+
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    
+
     def get_permissions(self):
         """
         - Solo los usuarios de la SMA pueden listar (`list`) todos los usuarios.
         - Los usuarios solo pueden ver (`retrieve`) y modificar (`update`, `partial_update`) su propio perfil.
         - Solo los SMA pueden eliminar (`destroy`) usuarios.
         """
-        
         if self.action == "list":
-            return [IsSMAUser()]  # Solo SMA puede ver la lista
-
+            return [IsSMAUserOrAdmin()]  # Solo SMA puede ver la lista
         if self.action in ["update", "partial_update", "retrieve", "destroy"]:
-            return [IsSMAOrSelf()]  # SMA puede hacer todo, otros solo su perfil
+            return [IsAdminOrSMAOrSelf()]  # SMA puede hacer todo, otros solo su perfil
 
         return super().get_permissions()
     
 
-class RegisterUserAPIView(APIView):
-    permission_classes = [AllowAny]  # By default all endpoints require Auth, but registration should be public?
-    def post(self, request):
-        
+class RegisterUserModelViewSet(viewsets.ModelViewSet):
+    # It makes sence that the registration should be public, so i left de auth comment in case our hypothesis 
+    # is wrong
+
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+    
+    def get_permissions(self):
+        if self.action == 'create':  # POST
+            return [AllowAny()]
+        return [IsAdminUser()]  # GET, PUT, DELETE, etc.
+
+    def create(self, request):
         if CustomUser.objects.filter(username=request.data.get('username')).exists():
             return Response({"message": "Username already exists."}, status=status.HTTP_400_BAD_REQUEST)
         if CustomUser.objects.filter(rut=request.data.get('rut')).exists():

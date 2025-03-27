@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 import environ
 
 # Initialize environ
@@ -50,7 +51,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "management",
     "reporting",
-]
+    "rest_framework_simplejwt",
+    ]
 
 if DEBUG:
     INSTALLED_APPS += ["drf_yasg"]
@@ -147,11 +149,17 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 # DRF
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+}
+
+# SimpleJWT
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1*60*24 if DEBUG else 5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 MEDIA_URL = "media/"
