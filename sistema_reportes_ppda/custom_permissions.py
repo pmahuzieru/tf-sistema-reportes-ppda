@@ -19,7 +19,7 @@ def is_sma(user):
     return user_body.name.strip() == SUPERINTENDENCIA_DEL_MEDIO_AMBIENTE
 
 
-class IsSMAUser(BasePermission):
+class IsSMAUserOrAdmin(BasePermission):
     """
     Allows permission only to users that represent the SMA and 
     admins.
@@ -31,7 +31,7 @@ class IsSMAUser(BasePermission):
         return request.user.is_authenticated and is_sma(request.user)
 
 
-class IsSMAOrSelf(BasePermission):
+class IsAdminOrSMAOrSelf(BasePermission):
     """
     Allows complete User listing access for SMA and 
      admins users, but others only to their own information.

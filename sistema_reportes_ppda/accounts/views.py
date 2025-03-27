@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAdminUser
 from accounts.models import CustomUser
 from accounts.serializers import CustomUserSerializer
-from custom_permissions import IsSMAOrSelf, IsSMAUser
+from custom_permissions import IsAdminOrSMAOrSelf, IsSMAUserOrAdmin
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
@@ -17,9 +17,9 @@ class CustomUserViewSet(viewsets.ModelViewSet):
         - Solo los SMA pueden eliminar (`destroy`) usuarios.
         """
         if self.action == "list":
-            return [IsSMAUser()]  # Solo SMA puede ver la lista
+            return [IsSMAUserOrAdmin()]  # Solo SMA puede ver la lista
         if self.action in ["update", "partial_update", "retrieve", "destroy"]:
-            return [IsSMAOrSelf()]  # SMA puede hacer todo, otros solo su perfil
+            return [IsAdminOrSMAOrSelf()]  # SMA puede hacer todo, otros solo su perfil
 
         return super().get_permissions()
     

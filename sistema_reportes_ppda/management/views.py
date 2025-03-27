@@ -16,7 +16,7 @@ from management.serializers import (
     BodySerializer,
     BodyMeasureSerializer,
 )
-from custom_permissions import IsAssignedToReportMeasure, IsSMAUser, ReportIsTheirs
+from custom_permissions import IsAssignedToReportMeasure, IsSMAUserOrAdmin, ReportIsTheirs
 
 
 class EnvironmentalPlanViewSet(viewsets.ModelViewSet):
@@ -42,7 +42,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         """
         if self.action in ["list", "retrieve"]:
             return [IsAuthenticated()]  # I'm not sure if this is OK because the restriction above
-        return [IsSMAUser()]  # Only SMA users can CRUD completely.
+        return [IsSMAUserOrAdmin()]  # Only SMA users can CRUD completely.
 
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
@@ -126,7 +126,7 @@ class BodyMeasureViewSet(viewsets.ModelViewSet):
         """
         if self.action in ["list", "retrieve"]:
             return [IsAuthenticated()]  
-        return [IsSMAUser()]  # Only allow SMA users to write these
+        return [IsSMAUserOrAdmin()]  # Only allow SMA users to write these
     
     def perform_create(self, serializer):
         # Automatically set the `created_by` field to the logged-in user
