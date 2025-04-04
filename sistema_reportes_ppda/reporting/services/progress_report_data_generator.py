@@ -56,6 +56,13 @@ class ProgressReportDataGenerator:
         different measure types.
         """
         pass
+    
+    def get_measure_completion_status_by_type(self):
+        """
+        Builds a dict with the amount of measures with at least one report and of those
+        not reported upon, for each measure type.
+        """
+        pass
 
     def generate(self):
 
