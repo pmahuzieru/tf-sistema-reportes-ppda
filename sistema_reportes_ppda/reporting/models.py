@@ -10,6 +10,7 @@ class ProgressReport(models.Model):
         EnvironmentalPlan, on_delete=models.PROTECT, related_name="progress_reports"
     )
     publication_date = models.DateField()
+    data_created = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
