@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from reporting.models import ProgressReport
 from reporting.serializers import ProgressReportSerializer
+from custom_permissions import IsSMAUserOrAdmin
 
 
 class ProgressReportViewSet(viewsets.ModelViewSet):
