@@ -23,3 +23,8 @@ def validate_rut(rut):
     body, dv = rut[:-1], rut[-1]  # Separar el número del dígito verificador
 
     return dv == calculate_dv(body)
+
+def format_rut(rut: str) -> str:
+    """Formats a Chilean RUT ID to 'XXXXXXXX-X' format."""
+    rut = re.sub(r"[^\dkK]", "", rut).upper()
+    return f"{rut[:-1]}-{rut[-1]}" if len(rut) > 1 else rut
