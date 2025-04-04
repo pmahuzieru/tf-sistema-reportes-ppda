@@ -1,6 +1,7 @@
 from django.utils.timezone import localtime
 from rest_framework import serializers
 from reporting.models import ProgressReport, ProgressReportData
+from reporting.services.progress_report_data_generator import ProgressReportDataGenerator
 
 from management.models import Measure, MeasureReport, EnvironmentalPlan
 
@@ -32,7 +33,7 @@ class ProgressReportSerializer(serializers.ModelSerializer):
         progress_report = super().create(validated_data)
 
         try:
-            self._generate_report_data(progress_report)
+            ProgressReportDataGenerator(progress_report).generate()
             progress_report.data_created = True
             progress_report.save()
         except Exception as e:
@@ -45,38 +46,3 @@ class ProgressReportSerializer(serializers.ModelSerializer):
         validated_data["updated_by"] = user
 
         return super().update(instance, validated_data)
-
-    def _generate_report_data(self, progress_report):
-        """
-        Generates report data
-        """
-
-        environmental_plan = progress_report.environmental_plan
-        measures = Measure.objects.filter(reference_PDA=environmental_plan)
-
-        measure_data = {}  # Keys are Measure IDs
-
-        for measure in measures:
-            # Get the latest report on the measure
-            latest_report = (
-                MeasureReport.objects.filter(measure=measure)
-                .order_by("-created_at")
-                .first()
-            )
-            
-            if latest_report:
-                measure_data[str(measure.id)] = {
-                    "measure_short_name": measure.short_name,
-                    "reported_value": latest_report.reported_value,
-                    "reported_at": localtime(latest_report.created_at).isoformat(),
-                }
-            else:
-                measure_data[str(measure.id)] = {
-                    "measure_short_name": measure.short_name,
-                    "reported_value": None,
-                    "reported_at": None,
-                }  
-
-        ProgressReportData.objects.create(
-            progress_report=progress_report, data=measure_data
-        )
