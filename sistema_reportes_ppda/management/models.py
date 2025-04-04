@@ -42,6 +42,14 @@ class Measure(models.Model):
         ("E", "Estudios"),
         ("O", "Otra"),
     ]
+    
+    MEASURE_VALUE_TYPES = [
+        ('boolean', 'Boolean'),
+        ('integer', 'Integer'),
+        ('decimal', 'Decimal'),
+        ('proportion', 'Proportion'),
+        ('text', 'Text')
+    ]
 
     reference_PDA = models.ForeignKey(
         EnvironmentalPlan,
@@ -56,6 +64,7 @@ class Measure(models.Model):
     short_name = models.CharField(max_length=500, null=False, blank=False)
     indicator = models.CharField(max_length=500, null=False, blank=False)
     calculation_formula = models.CharField(max_length=500, null=False, blank=False)
+    value_type = models.CharField(max_length=10, choices=MEASURE_VALUE_TYPES, null=False, blank=False)
     reporting_frequency = models.CharField(max_length=50, null=False, blank=False)
     verification_methods = models.CharField(max_length=500, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
