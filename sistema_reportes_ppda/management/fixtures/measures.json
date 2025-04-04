@@ -12,7 +12,7 @@
     {
       "short_name": "Control de emisiones en SQM S.A.",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "O",
+      "measure_type": "BIG",
       "indicator": "Implementación de mejoras en captación de polvo",
       "calculation_formula": "Evaluación de reducción de polvo en % de material procesado",
       "reporting_frequency": "Anual",
@@ -22,7 +22,7 @@
     {
       "short_name": "Programa de educación ambiental",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Número de actividades de difusión realizadas",
       "calculation_formula": "Registro de capacitaciones y participación ciudadana",
       "reporting_frequency": "Semestral",
@@ -72,7 +72,7 @@
     {
       "short_name": "Capacitación sobre calidad del aire",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Número de personas capacitadas",
       "calculation_formula": "Participantes registrados en diplomado",
       "reporting_frequency": "Anual",
@@ -112,7 +112,7 @@
     {
       "short_name": "Programa de educación ambiental",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Número de actividades de educación ambiental realizadas",
       "calculation_formula": "Total de eventos organizados por año",
       "reporting_frequency": "Anual",
@@ -172,7 +172,7 @@
     {
       "short_name": "Capacitación en gestión ambiental",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Número de capacitaciones realizadas",
       "calculation_formula": "Cantidad de actividades registradas por año",
       "reporting_frequency": "Anual",
@@ -202,7 +202,7 @@
     {
       "short_name": "Plataforma de información a la ciudadanía",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Existencia de Plataforma de información a la ciudadanía",
       "calculation_formula": "Sí/No",
       "reporting_frequency": "N/A",
@@ -302,7 +302,7 @@
     {
       "short_name": "Campaña comunicacional: Radial y Material de difusión sobre consumo de leña",
       "reference_plan_short_name": "PDA Tocopilla",
-      "measure_type": "EyD",
+      "measure_type": "ED",
       "indicator": "Documentación de implementación de la campaña",
       "calculation_formula": "Evidencia de publicaciones y difusión",
       "reporting_frequency": "1° semestre",
