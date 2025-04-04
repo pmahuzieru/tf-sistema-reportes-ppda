@@ -1,0 +1,78 @@
+[
+    {
+      "short_name": "PDA Tocopilla",
+      "name": "Plan de Descontaminación Atmosférica para Tocopilla",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PDA Calama",
+      "name": "Plan de Descontaminación Atmosférica para Calama",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PPA Huasco",
+      "name": "Plan de Prevención Atmosférica para Huasco",
+      "type": "PPA"
+    },
+    {
+      "short_name": "PDA Andacollo",
+      "name": "Plan de Descontaminación Atmosférica para Andacollo",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PPDA CQP",
+      "name": "Plan de Prevención y Descontaminación Atmosférica para Concón, Quintero y Puchuncaví",
+      "type": "PPDA"
+    },
+    {
+      "short_name": "PPDA RM",
+      "name": "Plan de Prevención y Descontaminación Atmosférica para la Región Metropolitana",
+      "type": "PPDA"
+    },
+    {
+      "short_name": "PDA O'Higgins",
+      "name": "Plan de Descontaminación Atmosférica para el Valle Central de la Región de O'Higgins",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PDA Talca-Maule",
+      "name": "Plan de Descontaminación Atmosférica para Talca y Maule",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PDA Curicó",
+      "name": "Plan de Descontaminación Atmosférica para Curicó",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PPDA Chillán",
+      "name": "Plan de Prevención y Descontaminación Atmosférica para Chillán y Chillán Viejo",
+      "type": "PPDA"
+    },
+    {
+      "short_name": "PDA Los Ángeles",
+      "name": "Plan de Descontaminación Atmosférica para Los Ángeles",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PPDA Concepción",
+      "name": "Plan de Prevención y Descontaminación Atmosférica para Concepción Metropolitano",
+      "type": "PPDA"
+    },
+    {
+      "short_name": "PDA Temuco",
+      "name": "Plan de Descontaminación Atmosférica para Temuco y Padre Las Casas",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PDA Valdivia",
+      "name": "Plan de Descontaminación Atmosférica para Valdivia",
+      "type": "PDA"
+    },
+    {
+      "short_name": "PDA Osorno",
+      "name": "Plan de Descontaminación Atmosférica para Osorno",
+      "type": "PDA"
+    }
+  ]
+  

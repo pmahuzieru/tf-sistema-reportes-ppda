@@ -186,3 +186,6 @@ README.*.md
 docker-compose.*.yaml
 
 *.sqlite3
+
+# VS Code
+.vscode/

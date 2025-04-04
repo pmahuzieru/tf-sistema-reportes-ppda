@@ -1,0 +1,107 @@
+[
+    {
+      "username": "admin",
+      "email": "admin@ppda.cl",
+      "is_superuser": true,
+      "is_staff": true
+    },
+    {
+      "username": "seremi_rm",
+      "email": "seremi.rm@mma.cl",
+      "is_superuser": false,
+      "is_staff": true,
+      "body": "SEREMI del Medio Ambiente RM"
+    },
+    {
+      "username": "seremi_valpo",
+      "email": "seremi.valpo@mma.cl",
+      "is_superuser": false,
+      "is_staff": true,
+      "body": "SEREMI del Medio Ambiente Valparaíso"
+    },
+    {
+      "username": "sma_user",
+      "email": "fiscalizador@sma.cl",
+      "is_superuser": false,
+      "is_staff": true,
+      "body": "Superintendencia del Medio Ambiente"
+    },
+    {
+      "username": "conaf_user",
+      "email": "usuario@conaf.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "CONAF"
+    },
+    {
+      "username": "dga_user",
+      "email": "usuario@dga.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Dirección General de Aguas"
+    },
+    {
+      "username": "sea_user",
+      "email": "usuario@sea.gob.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Servicio de Evaluación Ambiental"
+    },
+    {
+      "username": "sag_user",
+      "email": "usuario@sag.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Servicio Agrícola y Ganadero"
+    },
+    {
+      "username": "sec_user",
+      "email": "usuario@sec.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Superintendencia de Electricidad y Combustibles"
+    },
+    {
+      "username": "mtt_user",
+      "email": "usuario@mtt.gob.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Ministerio de Transportes y Telecomunicaciones"
+    },
+    {
+      "username": "minvu_user",
+      "email": "usuario@minvu.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Ministerio de Vivienda y Urbanismo"
+    },
+    {
+      "username": "minsal_user",
+      "email": "usuario@minsal.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Ministerio de Salud"
+    },
+    {
+      "username": "muni_tocopilla",
+      "email": "usuario@tocopilla.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Municipalidad de Tocopilla"
+    },
+    {
+      "username": "muni_concon",
+      "email": "usuario@concon.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Municipalidad de Concón"
+    },
+    {
+      "username": "muni_quintero",
+      "email": "usuario@quintero.cl",
+      "is_superuser": false,
+      "is_staff": false,
+      "body": "Municipalidad de Quintero"
+    }
+  ]
+  
