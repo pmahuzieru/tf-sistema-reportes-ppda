@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from accounts.models import CustomUser
-from accounts.utils import validate_rut
+from accounts.utils import validate_rut, format_rut
 from management.models import Body
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -31,4 +31,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
         """Valida el RUT antes de guardar."""
         if not validate_rut(value):
             raise serializers.ValidationError("RUT inválido.")
-        return value
+
+        return format_rut(value)
