@@ -36,11 +36,12 @@ class EnvironmentalPlan(models.Model):
 
 class Measure(models.Model):
     MEASURE_TYPE_CHOICES = [
-        ("NA", "No Aplica"),
-        ("PP", "Politica Publica"),
-        ("EyD", "Educacion y Difusion"),
+        ("R", "Regulación"),
+        ("FAE", "Fomento de actividades económicas"),
+        ("BIG", "Beneficios interés general"),
         ("E", "Estudios"),
-        ("O", "Otra"),
+        ("ED", "Educación y difusión"),
+        ("PP", "Política pública"),
     ]
 
     reference_PDA = models.ForeignKey(
