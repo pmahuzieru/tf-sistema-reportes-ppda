@@ -87,6 +87,12 @@ class Measure(models.Model):
 
     def __str__(self):
         return f"{self.reference_PDA.short_name} - {self.short_name}"
+    
+    def has_reports(self) -> bool:
+        return self.measure_reports.exists()
+    
+    def get_latest_report(self):
+        return self.measure_reports.order_by('-created_at').first()
 
 
 class MeasureReport(models.Model):
