@@ -7,6 +7,11 @@ from reporting.models import ProgressReportData
 
 
 class ProgressReportDataGenerator:
+    """
+    Stores the main business logic to build the required metrics and data for the
+    'Informe de Estado de Avance'.
+    """
+    
     def __init__(self, progress_report):
         self.progress_report = progress_report
         self.environmental_plan = progress_report.environmental_plan

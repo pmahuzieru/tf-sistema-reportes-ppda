@@ -5,6 +5,9 @@ from management.models import EnvironmentalPlan
 
 # Create your models here.
 class ProgressReport(models.Model):
+    """
+    Represents an instance of a "Informe de Estado de Avance" for an Environmental Plan
+    """
     name = models.CharField(max_length=100, null=False, blank=False)
     environmental_plan = models.ForeignKey(
         EnvironmentalPlan, on_delete=models.PROTECT, related_name="progress_reports"
@@ -34,6 +37,10 @@ class ProgressReport(models.Model):
 
 
 class ProgressReportData(models.Model):
+    """
+    Stores the data that the "Informe de Estado de Avance" requires to build/render
+    its visualizations.
+    """
     progress_report = models.OneToOneField(
         ProgressReport, on_delete=models.CASCADE, related_name="data"
     )

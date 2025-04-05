@@ -7,11 +7,15 @@ from management.models import Measure, MeasureReport, EnvironmentalPlan
 
 
 class ProgressReportSerializer(serializers.ModelSerializer):
+    
+    # For 'writing' operations, you pass the ID in the payload/body.
     environmental_plan_id = serializers.PrimaryKeyRelatedField(
         source='environmental_plan',
         queryset=EnvironmentalPlan.objects.all(),
         write_only=True
     )
+    
+    # For 'read' operations, returns the hyperlink to the resource.
     environmental_plan = serializers.HyperlinkedRelatedField(
         read_only=True,
         view_name='environmentalplan-detail'
