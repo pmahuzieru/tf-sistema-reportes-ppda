@@ -43,6 +43,14 @@ class Measure(models.Model):
         ("ED", "Educación y difusión"),
         ("PP", "Política pública"),
     ]
+    
+    MEASURE_VALUE_TYPES = [
+        ('boolean', 'Boolean'),
+        ('integer', 'Integer'),
+        ('decimal', 'Decimal'),
+        ('proportion', 'Proportion'),
+        ('text', 'Text')
+    ]
 
     reference_PDA = models.ForeignKey(
         EnvironmentalPlan,
@@ -57,6 +65,7 @@ class Measure(models.Model):
     short_name = models.CharField(max_length=500, null=False, blank=False)
     indicator = models.CharField(max_length=500, null=False, blank=False)
     calculation_formula = models.CharField(max_length=500, null=False, blank=False)
+    value_type = models.CharField(max_length=10, choices=MEASURE_VALUE_TYPES, null=False, blank=False)
     reporting_frequency = models.CharField(max_length=50, null=False, blank=False)
     verification_methods = models.CharField(max_length=500, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -79,6 +88,12 @@ class Measure(models.Model):
 
     def __str__(self):
         return f"{self.reference_PDA.short_name} - {self.short_name}"
+    
+    def has_reports(self) -> bool:
+        return self.measure_reports.exists()
+    
+    def get_latest_report(self):
+        return self.measure_reports.order_by('-created_at').first()
 
 
 class MeasureReport(models.Model):
