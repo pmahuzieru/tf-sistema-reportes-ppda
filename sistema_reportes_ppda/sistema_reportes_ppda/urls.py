@@ -5,6 +5,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from sistema_reportes_ppda.settings import DEBUG
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView, TokenVerifyView)
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView,
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +37,12 @@ if DEBUG:
     )
 
     urlpatterns += [
-        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-        path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+        # path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        # path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+
+        # Spectacular
+        path('schema/', SpectacularAPIView.as_view(), name='schema'),
+        path('spectacular/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='spectacular-swagger-ui'),
+        path('spectacular/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='spectacular-redoc'),
+
     ]

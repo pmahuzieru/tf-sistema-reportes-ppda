@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os
+import os, sys
 from pathlib import Path
 from datetime import timedelta
 import environ
@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     "management",
     "reporting",
     "rest_framework_simplejwt",
-    ]
+    "drf_spectacular"
+]
 
 if DEBUG:
     INSTALLED_APPS += ["drf_yasg"]
@@ -148,6 +149,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 # DRF
 REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
@@ -155,6 +157,14 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Sistema de Reportes PPDA',
+    'DESCRIPTION': 'API para gestionar planes, medidas, reportes y usuarios.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 
 # SimpleJWT
 SIMPLE_JWT = {
@@ -164,3 +174,15 @@ SIMPLE_JWT = {
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
+
+
+import sys
+
+if 'test' in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",  # Base en RAM, no persistente
+        }
+    }
