@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 
 def parse_boolean(value):
+    """Validates if a value is boolean parseable, otherwise raises a ValidationError"""
+    
     value = value.strip()
     if isinstance(value, bool):
         return value
@@ -12,6 +14,8 @@ def parse_boolean(value):
     raise serializers.ValidationError(f"Invalid boolean value: {value}")
 
 def parse_integer(value):
+    """Validates if a value is integer parseable, otherwise raises a ValidationError"""
+    
     value = value.strip()
     try:
         parsed_value = float(value)        
@@ -22,6 +26,8 @@ def parse_integer(value):
         raise ValueError(f'Invalid integer value: {value}')
     
 def parse_decimal(value):
+    """Validates if a value is floating point parseable, otherwise raises a ValidationError"""
+    
     value = value.strip()
     try:
         parsed_value = float(value)
@@ -30,6 +36,8 @@ def parse_decimal(value):
         raise ValueError(f'Invalid decimal value: {value}')
     
 def parse_percentage(value):
+    """Validates if a value can represent a percentage, otherwise raises a ValidationError"""
+    
     value = value.strip()
     try:
         if '%' in value:

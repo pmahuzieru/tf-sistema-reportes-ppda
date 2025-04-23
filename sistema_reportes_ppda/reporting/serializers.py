@@ -1,12 +1,16 @@
-from django.utils.timezone import localtime
 from rest_framework import serializers
-from reporting.models import ProgressReport, ProgressReportData
+from reporting.models import ProgressReport
 from reporting.services.progress_report_data_generator import ProgressReportDataGenerator
 
-from management.models import Measure, MeasureReport, EnvironmentalPlan
+from management.models import EnvironmentalPlan
 
 
 class ProgressReportSerializer(serializers.ModelSerializer):
+    """
+    Deserializes ProgressReport request input and triggers the generation of the
+    corresponding ProgressReportData instance at creation.
+    Implements tracking for who/when created/updated the instance.
+    """
     
     # For 'writing' operations, you pass the ID in the payload/body.
     environmental_plan_id = serializers.PrimaryKeyRelatedField(
