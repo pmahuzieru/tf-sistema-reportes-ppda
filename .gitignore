@@ -189,3 +189,6 @@ docker-compose.*.yaml
 
 # VS Code
 .vscode/
+
+# macOS stuff
+.DS_Store
