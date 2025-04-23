@@ -36,6 +36,21 @@ class RegisterUserAPITestCase(APITestCase):
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(CustomUser.objects.filter(username="usuario1").exists())
+        
+    def test_register_invalid_rut(self):
+        """Debe rechazar el intento de registro por tener RUT inválido."""
+        data = {
+            "username": "usuario1",
+            "password": "ClaveSegura123",
+            "email": "usuario1@test.cl",
+            "rut": "12345678-9",  # Invalid RUT
+            "first_name": "Juan",
+            "last_name": "Pérez",
+            "body": self.body.id
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(CustomUser.objects.filter(username="usuario1").exists())
 
     def test_register_user_with_duplicate_rut_fails(self):
         """Debe fallar si el RUT ya existe."""
