@@ -5,6 +5,11 @@ from accounts.utils import validate_rut, format_rut
 from management.models import Body
 
 class CustomUserSerializer(serializers.ModelSerializer):
+    """
+    Deserializes recieved input to process CustomUser data.
+    Validates and formats the given RUT.
+    """
+    
     # Evitar que se exponga el password
     password = serializers.CharField(
         write_only=True,
