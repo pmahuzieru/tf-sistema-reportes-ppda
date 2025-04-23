@@ -4,6 +4,10 @@ from management.utils import parse_boolean, parse_decimal, parse_integer, parse_
     
 
 class ReportFileSerializer(serializers.ModelSerializer):
+    """
+    Implements tracking of who/when created/updated a ReportFile instance.
+    """
+    
     class Meta:
         model = ReportFile
         fields = '__all__'
@@ -18,6 +22,13 @@ class ReportFileSerializer(serializers.ModelSerializer):
     
 
 class MeasureReportSerializer(serializers.ModelSerializer):
+    """
+    Deserializes MeasureReport inputs, with a main task of validating the type of 
+    value being reported.
+    Serializes related ReportFiles as hyperlinks (HATEOAS) for read actions.
+    Implements tracking of who/when created/updated a MeasureReport instance.
+    """
+    
     files = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='file-detail')
     
     class Meta:
@@ -33,6 +44,10 @@ class MeasureReportSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
     
     def validate_reported_value(self, value):
+        """
+        Validates that the value reported is consistent with the measure's type of indicator.
+        """
+        
         measure_id = self.initial_data.get('measure')
         measure = Measure.objects.get(id=measure_id)
         
@@ -51,6 +66,10 @@ class MeasureReportSerializer(serializers.ModelSerializer):
 
 
 class MeasureSerializer(serializers.ModelSerializer):
+    """
+    Serializes related MeasureReports as hyperlinks (HATEOAS) for read actions.
+    Implements tracking of who/when created/updated a MeasureReport instance.
+    """
     measure_reports = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='report-detail')
     class Meta:
         model = Measure
@@ -66,6 +85,11 @@ class MeasureSerializer(serializers.ModelSerializer):
  
  
 class EnvironmentalPlanSerializer(serializers.ModelSerializer):
+    """
+    Serializes related Measures as hyperlinks (HATEOAS) for read actions.
+    Implements tracking of who/when created/updated a MeasureReport instance.    
+    """
+    
     measures = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='measure-detail')
     
     class Meta:
@@ -82,6 +106,10 @@ class EnvironmentalPlanSerializer(serializers.ModelSerializer):
     
 
 class BodySerializer(serializers.ModelSerializer):
+    """
+    Implements tracking of who/when created/updated a Body instance.    
+    """
+    
     class Meta:
         model = Body
         fields = '__all__'
@@ -95,6 +123,10 @@ class BodySerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 class BodyMeasureSerializer(serializers.ModelSerializer):
+    """
+    Implements tracking of who/when created/updated a Body instance.    
+    """
+    
     fk_measure = serializers.PrimaryKeyRelatedField(queryset=Measure.objects.all())
     fk_body = serializers.PrimaryKeyRelatedField(queryset=Body.objects.all())
 
