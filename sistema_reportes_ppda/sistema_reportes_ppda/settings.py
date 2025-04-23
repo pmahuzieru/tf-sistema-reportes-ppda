@@ -169,6 +169,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 import sys
 
+# Si estamos corriendo tests (como en GitHub Actions), usar SQLite en memoria
 if 'test' in sys.argv:
     DATABASES = {
         "default": {
