@@ -1,0 +1,33 @@
+name: Django CI
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read Python version from .python-version file
+        id: pyversion
+        run: echo "PYTHON_VERSION=$(cat .python-version)" >> $GITHUB_OUTPUT
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ steps.pyversion.outputs.PYTHON_VERSION }}
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Use SQLite as test database
+        run: echo "DATABASE_URL=sqlite:///db.sqlite3" >> $GITHUB_ENV
+      - name: Check for missing migrations
+        run: |
+          cd sistema_reportes_ppda
+          python manage.py makemigrations --check --dry-run
+      - name: Run tests
+        run: |
+          cd sistema_reportes_ppda
+          python manage.py test
