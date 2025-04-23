@@ -1,9 +1,8 @@
-from django.utils.timezone import localtime
 from rest_framework import serializers
-from reporting.models import ProgressReport, ProgressReportData
+from reporting.models import ProgressReport
 from reporting.services.progress_report_data_generator import ProgressReportDataGenerator
 
-from management.models import Measure, MeasureReport, EnvironmentalPlan
+from management.models import EnvironmentalPlan
 
 
 class ProgressReportSerializer(serializers.ModelSerializer):
