@@ -6,6 +6,11 @@ from management.models import EnvironmentalPlan
 
 
 class ProgressReportSerializer(serializers.ModelSerializer):
+    """
+    Deserializes ProgressReport request input and triggers the generation of the
+    corresponding ProgressReportData instance at creation.
+    Implements tracking for who/when created/updated the instance.
+    """
     
     # For 'writing' operations, you pass the ID in the payload/body.
     environmental_plan_id = serializers.PrimaryKeyRelatedField(
