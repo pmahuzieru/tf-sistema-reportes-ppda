@@ -2,6 +2,12 @@ from django.db import models
 
 
 class EnvironmentalPlan(models.Model):
+    """
+    Represents an instance of an "Plan de Prevención y Descontaminación Ambiental" in
+    the system. It's used as the main reference to it, with its main attributes being
+    related through the other models.
+    """
+    
     PLAN_TYPE_CHOICES = [  # https://ppda.mma.gob.cl/
         ("PPA", "Plan de Prevención Atmosférica (PPA)"),
         ("PDA", "Plan de Descontaminación Atmosférica (PDA)"),
@@ -35,6 +41,12 @@ class EnvironmentalPlan(models.Model):
 
 
 class Measure(models.Model):
+    """
+    Represents an environmental measure ("medida"), which is a set of defined tasks/conditions
+    that must be completed by the assigned Sectorial Bodies. A set of measures compose
+    an Environmental Plan (PPDA).
+    """
+    
     MEASURE_TYPE_CHOICES = [
         ("R", "Regulación"),
         ("FAE", "Fomento de actividades económicas"),
@@ -97,6 +109,12 @@ class Measure(models.Model):
 
 
 class MeasureReport(models.Model):
+    """
+    Represents the result of the reporting on the current value of a measure's
+    indicator. Multiple reports are allowed on each measure, following the defined
+    reporting frequency.
+    """
+    
     measure = models.ForeignKey(
         Measure,
         on_delete=models.CASCADE,
@@ -128,6 +146,11 @@ class MeasureReport(models.Model):
 
 
 class ReportFile(models.Model):
+    """
+    Represents a file that acts as a verification method (or part of one) related 
+    to the reporting of a measure's value.
+    """
+    
     report = models.ForeignKey(
         MeasureReport,
         on_delete=models.CASCADE,
@@ -159,6 +182,11 @@ class ReportFile(models.Model):
 
 
 class Body(models.Model):
+    """
+    Represents a "sectorial body" involved with the environmental plans available
+    in the system.
+    """
+    
     name = models.CharField(max_length=100, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
@@ -182,6 +210,12 @@ class Body(models.Model):
 
 
 class BodyMeasure(models.Model):
+    """
+    Acts as the representation of the relationship between a Measure and a sectorial
+    Body. A measure will always require at least one Body to be assigned to them, but
+    multiple bodies can be involved, which makes this many-to-many linkage useful.
+    """
+    
     fk_measure = models.ForeignKey(
         Measure,
         on_delete=models.CASCADE,
