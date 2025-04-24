@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView, TokenVerifyView)
-from sistema_reportes_ppda.settings import DEBUG
+from sistema_reportes_ppda.settings.base import DEBUG
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
