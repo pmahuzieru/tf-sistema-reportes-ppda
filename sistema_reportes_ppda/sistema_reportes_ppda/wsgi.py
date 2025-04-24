@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_reportes_ppda.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_reportes_ppda.settings.dev')
 
 application = get_wsgi_application()

@@ -15,29 +15,17 @@ from pathlib import Path
 from datetime import timedelta
 import environ
 
-# Initialize environ
+
 env = environ.Env()
+environ.Env.read_env(env_file=os.getenv("ENV_FILE", ".env"))
 
-# Se debe crear un archivo .env (en este caso .env.dev) especificando la DATABASE_URL
-environ.Env.read_env(env_file=".env.dev")
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = env("SECRET_KEY")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-aghi@h_4c+s0!7v*^n6h^xlp#(ftm-6ge!xr6nt9knn4!cj1)p"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"] if DEBUG else []
-
-
-# Application definition
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost"])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -85,15 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "sistema_reportes_ppda.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {"default": env.db("DATABASE_URL")}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -110,34 +90,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = "static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Custom User setting
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-
-# DRF
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -155,19 +119,9 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-
-# SimpleJWT
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1*60*24 if DEBUG else 5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
-
-MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
-
-
-
-import sys
 
 # Si estamos corriendo tests (como en GitHub Actions), usar SQLite en memoria
 if 'test' in sys.argv:
