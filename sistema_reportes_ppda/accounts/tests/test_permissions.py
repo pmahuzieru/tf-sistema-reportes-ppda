@@ -3,14 +3,20 @@ from rest_framework import status
 from django.urls import reverse
 from accounts.models import CustomUser
 from management.models import Body
+from custom_permissions import SUPERINTENDENCIA_DEL_MEDIO_AMBIENTE
 
 
 class UserPermissionsTestCase(APITestCase):
     def setUp(self):
         self.superuser = self._create_superuser()
 
-        self.body = Body.objects.create(
-            name="SEREMI TEST",
+        self.body_sma = Body.objects.create(
+            name=SUPERINTENDENCIA_DEL_MEDIO_AMBIENTE,
+            created_by=self.superuser
+        )
+        
+        self.body_other = Body.objects.create(
+            name="Carabineros de Chile",
             created_by=self.superuser
         )
 
@@ -19,7 +25,7 @@ class UserPermissionsTestCase(APITestCase):
             password="test123",
             email="usuario@test.cl",
             rut="12345678-5",
-            body=self.body
+            body=self.body_other
         )
 
         self.user_sma = CustomUser.objects.create_user(
@@ -27,7 +33,7 @@ class UserPermissionsTestCase(APITestCase):
             password="test123",
             email="sma@test.cl",
             rut="11111111-1",
-            body=self.body,
+            body=self.body_sma,
             is_staff=True
         )
 
