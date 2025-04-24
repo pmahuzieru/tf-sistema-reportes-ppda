@@ -82,6 +82,14 @@ target/
 profile_default/
 ipython_config.py
 
+
+# Se agrega archivos de manejadores de dependencias de python para evitar commitiarlos dado
+# que el equipo esta usando requirements.txt directamente con pip
+# eliminar las siguientes 2 lineas si se quiere empezar a utilizar un manejador de paquetes 
+# como poetry o uv
+pyproject.toml
+uv.lock
+
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
 #   intended to run in multiple environments; otherwise, check them in:
@@ -129,6 +137,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.dev
+.env.prod
 .venv
 env/
 venv/
@@ -169,3 +179,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Others
+README.*.md
+docker-compose.*.yaml
+
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# macOS stuff
+.DS_Store
