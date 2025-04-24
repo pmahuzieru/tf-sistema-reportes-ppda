@@ -28,7 +28,12 @@ jobs:
           echo "DEBUG=True" >> .env.ci
           echo "ENV_FILE=.env.ci" >> $GITHUB_ENV
       - name: Check defined env variables
-        run: cat .env.ci
+        run: |
+          cat .env.ci
+          source .env.ci
+          echo "SECRET_KEY=$SECRET_KEY"
+          echo "DATABASE_URL=$DATABASE_URL"
+          echo "DEBUG=$DEBUG"
       - name: Check for missing migrations
         run: |
           cd sistema_reportes_ppda
