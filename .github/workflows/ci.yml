@@ -21,19 +21,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Create .env file for CI
-        run: |
-          echo "SECRET_KEY=temporal-secret-key-ci" >> .env.ci
-          echo "DATABASE_URL=sqlite:///db.sqlite3" >> .env.ci
-          echo "DEBUG=True" >> .env.ci
-          echo "ENV_FILE=.env.ci" >> $GITHUB_ENV
-      - name: Check defined env variables
-        run: |
-          cat .env.ci
-          source .env.ci
-          echo "SECRET_KEY=$SECRET_KEY"
-          echo "DATABASE_URL=$DATABASE_URL"
-          echo "DEBUG=$DEBUG"
       - name: Check for missing migrations
         run: |
           cd sistema_reportes_ppda
@@ -44,4 +31,7 @@ jobs:
       - name: Run tests
         run: |
           cd sistema_reportes_ppda
+          export SECRET_KEY="temporal-secret-key-ci"
+          export DATABASE_URL="sqlite:///db.sqlite3"
+          export DEBUG="True"
           python manage.py test
