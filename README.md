@@ -1,103 +1,104 @@
 # tf-sistema-reportes-ppda
 Sistema de Reportes PPDA SEA - Grupo 2 - Desarrollo Backend Python - Talento Futuro
 
+## Tecnologías principales
 
-# Swagger
-1. Ingresar a localhost:8000/admin y crear un nuevo token para tu usuario.
-2. Ingresar a localhost:8000/swagger
-3. Seleccionar el boton superior derecho 'Authorize' y escribir: `Token <api_token>`
-4. Testear los endpoints
+- Python 3.12.8
+- Django Rest Framework
+- PostgreSQL
+- Swagger (documentación API)
+- Pyenv (gestión de versiones de Python)
 
+## Instalación del proyecto
 
-# Llenar la base de datos
-1. Desde la carpeta del proyecto ejecutar los siguientes comandos:
-python manage.py loaddata fixtures/environmental_plans.json
-python manage.py loaddata fixtures/measures.json
-
-
-# Instrucciones para configurar el proyecto en su computador
-
-## 1. Clonar el reporte
-
-En una carpeta de su computador donde quieran dejar el repo (teniendo git instalado) 
-escriben
-
-```
+### 1. Clonar el repositorio
+```bash
 git clone https://github.com/pmahuzieru/tf-sistema-reportes-ppda.git
+cd tf-sistema-reportes-ppda
 ```
 
-## 2. Instalar pyenv para gestionar la versión de Python del proyecto
-
-### En macOS (con homebrew)
-
-1. Install pyenv dependencies: For Linux (Ubuntu/Debian-based systems) and macOS, you need to install some dependencies first. Run the following commands:
-
-```
+### 2. Configurar entorno Python (usando pyenv)
+**macOS**
+```bash
 brew install openssl readline sqlite3 xz zlib
-```
-2. Install pyenv: Install pyenv using curl:
-```
 curl https://pyenv.run | bash
 ```
-3. Update your shell configuration: After installing, add pyenv to your shell startup file. This ensures that pyenv is available every time you open a terminal.
 
-    For Bash (common on Linux and older macOS):
-```
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-source ~/.bashrc
-```
-For Zsh (common on newer macOS):
-
+Luego, agregar `pyenv` a `.zshrc` (o `bashrc` en Linux o macOS antiguos, según corresponda)
 ```
 echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 source ~/.zshrc
-```
+````
 
-4. Verify the installation: After running the above commands, verify that pyenv is installed:
-```
-pyenv --version
-```
+**Windows**
 
-### En Windows
-
-1. Install pyenv on Windows: On Windows, pyenv is available through a tool called pyenv-win. Install pyenv-win by running:
-
-```
+Instalar Pyenv a través de `pyenv-win`.
+```bash
 curl -L https://github.com/pyenv-win/pyenv-win/releases/latest/download/pyenv-win.zip -o pyenv-win.zip
 tar -xf pyenv-win.zip -C $HOME/.pyenv
 ```
-
-2. Add pyenv to system path: Add the following to your environment variables:
-
-```
-C:\Users\<Your-Username>\.pyenv\pyenv-win\bin
-C:\Users\<Your-Username>\.pyenv\pyenv-win\shims
+Agregar los siguientes directorios a las variables de entorno del sistema.
+```makefile
+C:\Users\<Usuario>\.pyenv\pyenv-win\bin
+C:\Users\<Usuario>\.pyenv\pyenv-win\shims
 ```
 
-3. Verify installation: Run:
-```
+**Validar que pyenv quedó bien instalado**
+
+Reiniciar terminal si es necesario
+```bash
 pyenv --version
 ```
 
-# 3. Instalar python 3.12.8 para el proyecto
-
-Once pyenv is installed, you can use it to install Python 3.12.8:
-```
+**Instalar versión de python deseada**
+```bash
 pyenv install 3.12.8
-```
-
-Set Python 3.12.8 as the local version for your project: In the root directory of your project (inside tf-sisstema-reportes-ppda), run:
-```
 pyenv local 3.12.8
 ```
-This will create a .python-version file in your project directory with the Python version you selected. This ensures that anyone who clones the repository and uses pyenv will automatically switch to Python 3.12.8.
 
-Verify the Python version: After setting it, you can check the version:
+### 3. Crear entorno virtual y activar
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv/Scripts/activate  # Windows
 ```
-python --version
+
+### 4. Instalar dependencias
+```bash
+pip install -r requirements.txt
 ```
-It should return Python 3.12.8.
+
+### 5. Configurar archivo `.env``
+Crear un archivo `.env.dev` y asegurarse de incluir al menos las siguientes variables del ejemplo:
+
+```
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+SECRET_KEY=grupo-2-secret-key-dev
+DATABASE_URL=postgres://<username>:<password>@localhost:5432/<database>
+```
+
+## Uso y desarrollo
+### Ejecutar el servidor:
+```bash
+cd sistema_reportes_ppda
+ENV_FILE=.env.dev python manage.py runserver
+```
+**Nota**: Es importante especificar `ENV_FILE=.env.dev` (o el archivo que corresponda) para contar con las variables de entorno adecuadas.
+
+### Cargar datos de ejemplo (fixtures)
+```bash
+cd sistema_reportes_ppda
+
+# Ejemplo
+ENV_FILE=.env.dev python manage.py loaddata fixtures/environmental_plans.json
+ENV_FILE=.env.dev python manage.py loaddata fixtures/measures.json
+```
+
+### Swagger
+1. Ingresar a localhost:8000/admin y crear un nuevo token para tu usuario.
+2. Ingresar a localhost:8000/swagger
+3. Seleccionar el boton superior derecho 'Authorize' y escribir: `Token <api_token>`
+4. Testear los endpoints
