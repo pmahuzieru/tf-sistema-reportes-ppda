@@ -19,11 +19,9 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
+environ.Env.read_env(env_file=os.getenv("ENV_FILE", ".env"))
 
-env_file = os.getenv("ENV_FILE", ".env")
-env_path = Path(BASE_DIR) / env_file
-environ.Env.read_env(env_file=env_path)
-
+print("ENV PATH:", os.getenv("ENV_FILE", ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
 
