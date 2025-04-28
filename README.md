@@ -88,13 +88,12 @@ ENV_FILE=.env.dev python manage.py runserver
 ```
 **Nota**: Es importante especificar `ENV_FILE=.env.dev` (o el archivo que corresponda) para contar con las variables de entorno adecuadas.
 
-### Cargar datos de ejemplo (fixtures)
+### Cargar datos de ejemplo
 ```bash
 cd sistema_reportes_ppda
 
 # Ejemplo
-ENV_FILE=.env.dev python manage.py loaddata fixtures/environmental_plans.json
-ENV_FILE=.env.dev python manage.py loaddata fixtures/measures.json
+ENV_FILE=.env.dev python manage.py populate_data
 ```
 
 ### Swagger
