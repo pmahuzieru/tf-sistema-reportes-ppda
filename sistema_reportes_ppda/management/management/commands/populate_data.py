@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 from django.core.files.base import ContentFile
 import json
 from pathlib import Path

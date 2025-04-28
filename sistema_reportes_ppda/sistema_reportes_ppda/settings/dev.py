@@ -1,6 +1,6 @@
-from .base import *
+from .base import * # noqa: F403
 
 
 DEBUG = True
 
-SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"] = timedelta(minutes=60*24)  # 1 día
+SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"] = timedelta(minutes=60*24)  # noqa: F405

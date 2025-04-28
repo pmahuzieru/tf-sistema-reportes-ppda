@@ -1,9 +1,7 @@
 from rest_framework import viewsets
-from rest_framework.exceptions import NotFound
 from reporting.models import ProgressReport
 from reporting.serializers import ProgressReportSerializer
 from custom_permissions import IsSMAUserOrAdmin
-from management.models import EnvironmentalPlan
 from drf_spectacular.utils import extend_schema
 
 

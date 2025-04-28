@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import os, sys
+import os
+import sys
 from pathlib import Path
 from datetime import timedelta
 import environ

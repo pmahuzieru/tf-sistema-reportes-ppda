@@ -59,11 +59,11 @@ def test_progress_report_data_reflects_measure_reports(self):
     self.authenticate("admin", "admin123")
 
     # Crear medida
-    from management.models import Measure, Body, BodyMeasure, MeasureReport
+    from management.models import Measure, Body, BodyMeasure
     from reporting.models import ProgressReportData
 
     body = Body.objects.create(name="SEREMI TEST", created_by=self.admin)
-    user = CustomUser.objects.create_user(
+    CustomUser.objects.create_user(
         username="seremi_user", password="seremi123", rut="12345678-5", body=body
     )
 

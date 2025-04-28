@@ -81,7 +81,7 @@ class ReportFileViewSetTests(APITestCase):
         other_user = CustomUser.objects.create_user(
             username="otro", password="otro123", email="otro@seremi.cl", rut="98765432-1", body=other_body
         )
-        self.authenticate("otro", "otro123")
+        self.authenticate(other_user.username, "otro123")
 
         file_data = SimpleUploadedFile("respaldo2.pdf", b"otro archivo", content_type="application/pdf")
 
